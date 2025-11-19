@@ -22,6 +22,7 @@ export const t = {
     emptyCart: 'سەبەتە بەتاڵە',
     cartEmpty: 'سەبەتەکەت بەتاڵە',
     addToCart: 'زیادکردن بۆ سەبەتە',
+    itemAdded: 'زیادکرا',
     allCategories: 'هەموو جۆرەکان',
     noProducts: 'هیچ بەرهەمێک نەدۆزرایەوە',
     subtotal: 'کۆی لاوەکی',
@@ -117,6 +118,7 @@ export const t = {
     invalidStock: 'کۆگا دەبێت ژمارەیەکی دروست بێت',
     emptyCart: 'سەبەتە بەتاڵە',
     insufficientStock: 'کۆگا بەسی ناکات',
+    productNotFound: 'بەرهەم نەدۆزرایەوە',
   },
 
   // Keyboard Shortcuts

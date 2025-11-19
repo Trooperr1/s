@@ -77,15 +77,15 @@ function ReceiptContent({
   return (
     <div style={{ width: '58mm', fontFamily: 'monospace', fontSize: '12px', textAlign: 'center', padding: '8px' }}>
       {/* Store Name */}
-      <div style={{ borderBottom: '2px dashed #000', paddingBottom: '8px', marginBottom: '8px' }}>
-        <h1 style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 4px 0' }}>{storeNameKurdish}</h1>
-        <p style={{ fontSize: '14px', margin: '0' }}>{storeName}</p>
+      <div style={{ borderBottom: '2px dashed #000', paddingBottom: '10px', marginBottom: '10px' }}>
+        <h1 style={{ fontSize: '20px', fontWeight: 'bold', margin: '0 0 6px 0', letterSpacing: '0.5px' }}>{storeNameKurdish}</h1>
+        <p style={{ fontSize: '13px', margin: '0', color: '#555' }}>{storeName}</p>
       </div>
 
       {/* Invoice Number and Date/Time */}
-      <div style={{ fontSize: '11px', marginBottom: '8px', textAlign: 'left' }}>
-        <div style={{ marginBottom: '2px' }}>{t.receipt.invoice}: {sale.invoiceNumber}</div>
-        <div style={{ marginBottom: '2px' }}>{formatDate(sale.date)} - {formatTime(sale.date)}</div>
+      <div style={{ fontSize: '11px', marginBottom: '10px', textAlign: 'left', lineHeight: '1.6' }}>
+        <div style={{ marginBottom: '3px', fontWeight: 'bold' }}>{t.receipt.invoice}: {sale.invoiceNumber}</div>
+        <div style={{ marginBottom: '3px', color: '#666' }}>{formatDate(sale.date)} - {formatTime(sale.date)}</div>
       </div>
 
       {/* Items */}
@@ -141,9 +141,10 @@ function ReceiptContent({
       </div>
 
       {/* Footer */}
-      <div style={{ borderTop: '2px dashed #000', paddingTop: '8px', marginTop: '8px', fontSize: '11px' }}>
-        <p style={{ fontWeight: 'bold', margin: '0 0 4px 0' }}>{t.receipt.thankYou}</p>
-        {footer && <p style={{ margin: '0' }}>{footer}</p>}
+      <div style={{ borderTop: '2px dashed #000', paddingTop: '10px', marginTop: '10px', fontSize: '11px' }}>
+        <p style={{ fontWeight: 'bold', margin: '0 0 6px 0', fontSize: '13px' }}>{t.receipt.thankYou}</p>
+        {footer && <p style={{ margin: '0', color: '#666' }}>{footer}</p>}
+        <p style={{ margin: '6px 0 0 0', fontSize: '10px', color: '#999' }}>{t.receipt.footer}</p>
       </div>
     </div>
   );

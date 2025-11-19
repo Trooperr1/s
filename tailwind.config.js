@@ -14,24 +14,29 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#3b82f6",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#2563eb",
+          light: "#dbeafe",
+          foreground: "#ffffff",
         },
         success: {
           DEFAULT: "#10b981",
-          foreground: "hsl(var(--success-foreground))",
+          foreground: "#ffffff",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "#ef4444",
+          foreground: "#ffffff",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "#f3f4f6",
+          foreground: "#64748b",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "#dbeafe",
+          foreground: "#2563eb",
+        },
+        gray: {
+          DEFAULT: "#64748b",
+          light: "#f1f5f9",
         },
       },
       borderRadius: {

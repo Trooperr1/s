@@ -208,16 +208,22 @@ export async function initializeDatabase() {
 }
 
 /**
- * Generate next invoice number
+ * Generate next invoice number in format: INV-YYYYMMDD-XXX
  */
 export async function generateInvoiceNumber(): Promise<string> {
   const settings = await db.settings.toCollection().first();
   if (!settings) throw new Error('Settings not initialized');
 
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const dateStr = `${year}${month}${day}`;
+
   const nextNumber = settings.lastInvoiceNumber + 1;
   await db.settings.update(settings.id!, { lastInvoiceNumber: nextNumber });
 
-  return `#${String(nextNumber).padStart(5, '0')}`;
+  return `INV-${dateStr}-${String(nextNumber).padStart(3, '0')}`;
 }
 
 /**
@@ -242,7 +248,23 @@ export async function getProductsByCategory(categoryId: number) {
 }
 
 /**
- * Search products
+ * Search products by barcode (exact match first, then partial)
+ */
+export async function searchByBarcode(barcode: string) {
+  // Try exact match first
+  const exactMatch = await db.products.where('barcode').equals(barcode).first();
+  if (exactMatch) return exactMatch;
+
+  // Try partial match
+  const partialMatches = await db.products
+    .filter(product => product.barcode.includes(barcode))
+    .toArray();
+
+  return partialMatches.length > 0 ? partialMatches[0] : null;
+}
+
+/**
+ * Search products by name or barcode
  */
 export async function searchProducts(query: string) {
   const lowerQuery = query.toLowerCase();

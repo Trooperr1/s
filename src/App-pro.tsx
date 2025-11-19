@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { ShoppingCart, Package, History } from 'lucide-react';
 import { usePOSStore } from './lib/store';
 import { initializeDatabase, addSale, getSettings, type Sale as SaleType } from './lib/database';
-import { Button } from './components/ui/button';
 import { Toaster } from './components/ui/toaster';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './components/ui/dialog';
 import SalesScreen from './components/SalesScreen-pro';
@@ -51,23 +50,39 @@ export default function App() {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // F2 - New Sale
+      // F2 - New Sale / Focus Search
       if (e.key === 'F2') {
         e.preventDefault();
         setCurrentScreen('sales');
-        toast.success('شاشەی فرۆشتن');
+        toast.success('شاشەی فرۆشتن', {
+          icon: '🛒',
+          style: { direction: 'rtl', fontWeight: 'bold' }
+        });
+        // Focus search input after a short delay
+        setTimeout(() => {
+          const searchInput = document.querySelector<HTMLInputElement>('input[type="text"]');
+          searchInput?.focus();
+        }, 100);
       }
       // F9 - Products
       if (e.key === 'F9') {
         e.preventDefault();
         setCurrentScreen('products');
-        toast.success('بەڕێوەبردنی بەرهەمەکان');
+        toast.success('بەڕێوەبردنی بەرهەمەکان', {
+          icon: '📦',
+          style: { direction: 'rtl', fontWeight: 'bold' }
+        });
       }
-      // Escape - Clear Cart
-      if (e.key === 'Escape' && currentScreen === 'sales' && cart.length > 0) {
-        if (confirm('دڵنیایت لە سڕینەوەی سەبەتە?')) {
-          clearCart();
-          toast.success('سەبەتە سڕایەوە');
+      // Escape - Clear Cart or Close Dialogs
+      if (e.key === 'Escape') {
+        if (currentScreen === 'sales' && cart.length > 0) {
+          if (confirm('دڵنیایت لە سڕینەوەی سەبەتە؟')) {
+            clearCart();
+            toast.success('سەبەتە سڕایەوە', {
+              icon: '🗑️',
+              style: { direction: 'rtl', fontWeight: 'bold' }
+            });
+          }
         }
       }
     };
@@ -193,23 +208,7 @@ export default function App() {
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-8">
-        {currentScreen === 'sales' && (
-          <div>
-            <SalesScreen />
-            {cart.length > 0 && (
-              <div className="fixed bottom-6 left-6 right-6 max-w-md mx-auto no-print">
-                <Button
-                  variant="success"
-                  size="lg"
-                  className="w-full h-16 text-xl font-black shadow-2xl"
-                  onClick={handlePayment}
-                >
-                  {t.sales.pay}
-                </Button>
-              </div>
-            )}
-          </div>
-        )}
+        {currentScreen === 'sales' && <SalesScreen onPay={handlePayment} />}
         {currentScreen === 'products' && <ProductManagement />}
         {currentScreen === 'history' && <SalesHistory />}
       </main>
